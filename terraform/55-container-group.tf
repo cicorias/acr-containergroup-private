@@ -18,8 +18,6 @@ resource "azurerm_container_group" "this" {
     }
   }
 
-  network_profile_id = azurerm_subnet.aci.id
-
   identity {
     type         = "UserAssigned"
     identity_ids = [azurerm_user_assigned_identity.this.id]
