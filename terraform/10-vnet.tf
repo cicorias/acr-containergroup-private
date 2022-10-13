@@ -19,18 +19,43 @@ resource "azurerm_subnet" "subnet-2" {
   address_prefixes     = [lookup(var.vnet_subnet_cidr, "2")]
 }
 
-resource "azurerm_subnet" "subnet-3" {
-  name                 = format("%s-%s", var.subnet_prefix, "3")
+resource "azurerm_subnet" "aci" {
+  name                 = format("%s-%s", var.subnet_prefix, "aci")
   resource_group_name  = azurerm_resource_group.this.name
   virtual_network_name = azurerm_virtual_network.this.name
-  address_prefixes     = [lookup(var.vnet_subnet_cidr, "3")]
+  address_prefixes     = [lookup(var.vnet_subnet_cidr, "aci")]
+
+  delegation {
+    name = "delegation"
+
+    service_delegation {
+      name    = "Microsoft.ContainerInstance/containerGroups"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
+
 }
 
-resource "azurerm_subnet" "subnet-4" {
-  name                 = format("%s-%s", var.subnet_prefix, "4")
+resource "azurerm_network_profile" "aci" {
+  name                = "aci"
+  location            = azurerm_resource_group.this.location
+  resource_group_name = azurerm_resource_group.this.name
+
+  container_network_interface {
+    name = "acinic"
+
+    ip_configuration {
+      name      = "exampleipconfig"
+      subnet_id = azurerm_subnet.aci.id
+    }
+  }
+}
+
+resource "azurerm_subnet" "jumpbox" { // jumpbox subnet
+  name                 = format("%s-%s", var.subnet_prefix, "jumpbox")
   resource_group_name  = azurerm_resource_group.this.name
   virtual_network_name = azurerm_virtual_network.this.name
-  address_prefixes     = [lookup(var.vnet_subnet_cidr, "4")]
+  address_prefixes     = [lookup(var.vnet_subnet_cidr, "jumpbox")]
 }
 
 resource "azurerm_subnet" "bastion" {

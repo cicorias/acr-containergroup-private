@@ -33,7 +33,7 @@ resource "azurerm_network_interface" "jumpbox_nic" {
 
   ip_configuration {
     name                          = "${var.jumpbox_name}-configuration"
-    subnet_id                     = azurerm_subnet.bastion.id
+    subnet_id                     = azurerm_subnet.jumpbox.id
     private_ip_address_allocation = "Dynamic"
   }
 }

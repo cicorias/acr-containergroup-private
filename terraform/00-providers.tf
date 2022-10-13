@@ -34,3 +34,10 @@ provider "azurerm" {
   }
 }
 
+provider "azurerm" {
+  alias           = "ssu"
+  subscription_id = "94b0cff0-edee-4f6f-96dc-03ec2eecfc35"
+  tenant_id       = "72f988bf-86f1-41af-91ab-2d7cd011db47"
+
+  features {}
+}

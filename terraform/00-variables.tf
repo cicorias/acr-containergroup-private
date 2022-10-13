@@ -1,7 +1,12 @@
+variable "nonce" {
+  type    = string
+  default = "b3addcb7"
+}
+
 variable "resource_group_name" {
   type        = string
   description = "The name of the resource group in which to create the resources."
-  default     = "acr-private"
+  default     = "spc-private"
 }
 
 variable "location" {
@@ -30,11 +35,11 @@ variable "location" {
 
 ### ACR settings
 
-variable "acr_name" {
-  type        = string
-  description = "The name of the Azure Container Registry."
-  default     = "spcacrprivate"
-}
+# variable "acr_name" {
+#   type        = string
+#   description = "The name of the Azure Container Registry."
+#   default     = local.acr_name
+# }
 
 variable "acr_sku" {
   description = "The SKU of the container registry"
@@ -58,9 +63,9 @@ variable "vnet_name" {
 }
 
 variable "subnet_prefix" {
-   description = "The subnet prefix"
-    type        = string
-    default     = "spc"  
+  description = "The subnet prefix"
+  type        = string
+  default     = "spc"
 }
 
 variable "vnet_cidr" {
@@ -73,10 +78,10 @@ variable "vnet_subnet_cidr" {
   description = "cidr block for the subnets"
   type        = map(any)
   default = {
-    1 = "172.20.1.0/27"
-    2 = "172.20.1.32/27"
-    3 = "172.20.1.64/27"
-    4 = "172.20.1.96/27"
+    1       = "172.20.1.0/27"
+    2       = "172.20.1.32/27"
+    aci     = "172.20.1.64/27"
+    jumpbox = "172.20.1.96/27"
     bastion = "172.20.1.128/27"
   }
 }
@@ -114,7 +119,7 @@ variable "jumpbox_admin_name" {
   type        = string
   default     = "azureuser"
 }
-  
+
 variable "ssh_key_file" {
   description = "The path to the SSH key file"
   type        = string
