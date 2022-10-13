@@ -8,5 +8,5 @@ resource "azurerm_container_registry" "acr" {
   location            = azurerm_resource_group.this.location
   sku                 = var.acr_sku
   admin_enabled       = var.acr_admin_enabled
-
+  public_network_access_enabled  = var.acr_public_network_access_enabled
 }

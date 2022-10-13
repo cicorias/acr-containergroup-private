@@ -65,6 +65,10 @@ variable "acr_admin_enabled" {
   default     = false
 }
 
+variable "acr_public_network_access_enabled" {
+  type = bool
+  default = true
+}
 
 ## vnet settings
 
