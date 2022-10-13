@@ -4,7 +4,7 @@ resource "azurerm_resource_group" "this" {
 }
 
 resource "azurerm_resource_group" "ssu_group" {
-  provider = azurerm.ssu
+  provider = azurerm.ssu-1
   name     = format("%s-%s", "ssu", var.resource_group_name)
   location = var.location
 }

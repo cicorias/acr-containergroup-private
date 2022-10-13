@@ -3,6 +3,18 @@ variable "nonce" {
   default = "b3addcb7"
 }
 
+variable "ssu_1_subscription_id" {
+  type        = string
+  default     = ""
+  description = "Subscription id where SSU-1 is located"
+}
+
+variable "ssu_1_tenant_id" {
+  type        = string
+  default     = ""
+  description = "Tenant id for subscription where SSU-1 is located"
+}
+
 variable "resource_group_name" {
   type        = string
   description = "The name of the resource group in which to create the resources."
