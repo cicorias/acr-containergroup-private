@@ -35,7 +35,7 @@ provider "azurerm" {
 }
 
 provider "azurerm" {
-  alias           = "ssu-1"
+  alias = "ssu-1"
 
   features {}
 }

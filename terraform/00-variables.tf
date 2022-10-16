@@ -66,8 +66,57 @@ variable "acr_admin_enabled" {
 }
 
 variable "acr_public_network_access_enabled" {
-  type = bool
+  type    = bool
   default = true
+}
+
+# variable "acr_diag_logs" {
+#   description = "Application Gateway Monitoring Category details for Azure Diagnostic setting"
+#   default     = ["ContainerRegistryRepositoryEvents", "ContainerRegistryLoginEvents"]
+# }
+variable "acr_diag_logs" {
+  type = set(object({
+    category          = string
+    enabled           = bool
+    retention_enabled = bool
+    retention_days    = number
+  }))
+  # default = null
+  default = [
+    {
+      category          = "ContainerRegistryRepositoryEvents"
+      enabled           = true
+      retention_enabled = true
+      retention_days    = 30
+    },
+    {
+      category          = "ContainerRegistryLoginEvents"
+      enabled           = true
+      retention_enabled = true
+      retention_days    = 30
+    }
+  ]
+}
+
+variable "acr_diag_metrics" {
+  type = set(object({
+    category          = string
+    enabled           = bool
+    retention_enabled = bool
+    retention_days    = number
+  }))
+  default = [{
+    category          = "AllMetrics"
+    enabled           = true
+    retention_days    = 30
+    retention_enabled = true
+  }]
+}
+
+variable "log_analytics_workspace_id" {
+  type     = string
+  default  = null
+  nullable = true
 }
 
 ## vnet settings
