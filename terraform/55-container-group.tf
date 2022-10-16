@@ -2,8 +2,8 @@ resource "azurerm_container_group" "this" {
   name                = "spc-aci"
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
-  ip_address_type     = "Private"
-  # dns_name_label      = "spc-aci"
+  ip_address_type     = "Public"
+  dns_name_label      = "spc-aci"
   os_type = "Linux"
 
   container {

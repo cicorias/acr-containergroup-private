@@ -1,4 +1,21 @@
+# Issues
+
+```
+https://learn.microsoft.com/en-us/azure/container-instances/container-instances-vnet
+Private IP address is only supported when network profile is defined.
+│ Error: creating Container Group (Subscription: "94b0cff0-edee-4f6f-96dc-03ec2eecfc35"
+│ Resource Group Name: "spc-private-b3addcb7"
+│ Container Group Name: "spc-aci"): performing ContainerGroupsCreateOrUpdate: containerinstance.ContainerInstanceClient#ContainerGroupsCreateOrUpdate: Failure sending request: StatusCode=0 -- Original Error: Code="PrivateIPAddressNotSupported" Message="IP Address type in container group 'spc-aci' is invalid. Private IP address is only supported when network profile is defined."
+│ 
+│   with azurerm_container_group.this,
+│   on 55-container-group.tf line 1, in resource "azurerm_container_group" "this":
+│    1: resource "azurerm_container_group" "this" {
+```
+
+
 # These are the docs...
+
+
 
 ```
 terraform-docs markdown --output-file README.md --output-mode inject .
