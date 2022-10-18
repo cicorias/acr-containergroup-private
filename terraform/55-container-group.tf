@@ -4,7 +4,7 @@ resource "azurerm_container_group" "this" {
   resource_group_name = azurerm_resource_group.this.name
   ip_address_type     = "Public"
   dns_name_label      = "spc-aci"
-  os_type = "Linux"
+  os_type             = "Linux"
 
   container {
     name   = "hello-world"

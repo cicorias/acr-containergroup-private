@@ -21,38 +21,11 @@ data "azurerm_log_analytics_workspace" "law" {
   resource_group_name = "scicoria-fn1"
 }
 
-resource "azurerm_monitor_diagnostic_setting" "this" {
-  count                      = data.azurerm_log_analytics_workspace.law.id != null ? 1 : 0
-  name                       = lower(format("%s-%s-%s", "spc", "diag", local.acr_name))
+module "diagnostics" {
+  source                     = "../modules"
+  diagnostic_name            = "acr-diag"
   target_resource_id         = azurerm_container_registry.this.id
-  log_analytics_workspace_id = data.azurerm_log_analytics_workspace.law.id // var.log_analytics_workspace_id
-
-  dynamic "log" {
-    for_each = var.acr_diag_logs
-    content {
-      category = log.value.category
-      enabled  = log.value.enabled
-
-      retention_policy {
-        enabled = log.value.retention_enabled
-        days    = log.value.retention_days
-      }
-    }
-  }
-
-  dynamic "metric" {
-    for_each = var.acr_diag_metrics
-    content {
-      category = metric.value.category
-      enabled  = metric.value.enabled
-      retention_policy {
-        enabled = metric.value.retention_enabled
-        days    = metric.value.retention_days
-      }
-    }
-  }
-
-  lifecycle {
-    ignore_changes = [log] //, metric]
-  }
+  log_analytics_workspace_id = data.azurerm_log_analytics_workspace.law.id
+  diag_logs                  = var.diag_logs
+  diag_metrics               = var.diag_metrics
 }
