@@ -1,0 +1,23 @@
+diag_logs = [
+  {
+    category          = "ContainerRegistryRepositoryEvents"
+    enabled           = true
+    retention_enabled = true
+    retention_days    = 30
+  },
+  {
+    category          = "ContainerRegistryLoginEvents"
+    enabled           = true
+    retention_enabled = true
+    retention_days    = 30
+  }
+]
+
+
+diag_metrics = [{
+  category          = "AllMetrics"
+  enabled           = true
+  retention_days    = 30
+  retention_enabled = true
+}]
+
